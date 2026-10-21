@@ -101,4 +101,13 @@ sync();setTimeout(sync,100);
 })();
 </script><div aria-label="Property photo gallery" aria-modal="true" class="stay-lightbox" hidden="" id="stay-lightbox" role="dialog"><button aria-label="Close gallery" class="stay-close" type="button">×</button><button aria-label="Previous photo" class="stay-prev" type="button">‹</button><figure><img alt="Property photo" src=""/><figcaption></figcaption></figure><button aria-label="Next photo" class="stay-next" type="button">›</button></div><script>
 (()=>{const photos=Array.from(document.querySelectorAll('.stay-thumb'));const box=document.getElementById('stay-lightbox');if(!box)return;let index=0;const show=n=>{index=(n+photos.length)%photos.length;const im=photos[index].querySelector('img');box.querySelector('figure img').src=im.src;box.querySelector('figure img').alt=im.alt;box.querySelector('figcaption').textContent=`${im.alt} · ${index+1} of ${photos.length}`;box.hidden=false;document.body.style.overflow='hidden';};const close=()=>{box.hidden=true;document.body.style.overflow='';};photos.forEach((b,i)=>b.addEventListener('click',()=>show(i)));box.querySelector('.stay-close').addEventListener('click',close);box.querySelector('.stay-prev').addEventListener('click',()=>show(index-1));box.querySelector('.stay-next').addEventListener('click',()=>show(index+1));box.addEventListener('click',e=>{if(e.target===box)close()});document.addEventListener('keydown',e=>{if(box.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')show(index-1);if(e.key==='ArrowRight')show(index+1)});let touchX=0;box.addEventListener('touchstart',e=>{touchX=e.changedTouches[0].screenX},{passive:true});box.addEventListener('touchend',e=>{const dx=e.changedTouches[0].screenX-touchX;if(Math.abs(dx)>45)show(index+(dx<0?1:-1))},{passive:true});})();
-</script></body></html>
+</script><script>
+// Open the homepage at the beginning, while preserving intentional section links.
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+function startAtTopIfNoAnchor() {
+  if (!window.location.hash) window.scrollTo({top: 0, left: 0, behavior: 'instant'});
+}
+window.addEventListener('pageshow', startAtTopIfNoAnchor);
+window.addEventListener('load', startAtTopIfNoAnchor);
+</script>
+</body></html>
